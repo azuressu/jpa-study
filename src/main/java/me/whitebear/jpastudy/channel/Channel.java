@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import me.whitebear.jpastudy.thread.Thread;
 import me.whitebear.jpastudy.user.User;
 import me.whitebear.jpastudy.userChannel.UserChannel;
-import me.whitebear.jpastudy.userChannel.UserChannelRepository;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -55,7 +54,7 @@ public class Channel {
     @OneToMany(mappedBy = "channel")
     private Set<Thread> threads = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "channel")
+    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL) // userChannel에 전이됨
     private Set<UserChannel> userChannels = new LinkedHashSet<>(); // 중복 제거 및 불러오는 시점의 순서 보장
 
     /**

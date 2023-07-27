@@ -16,13 +16,11 @@ import me.whitebear.jpastudy.user.User;
 @Entity
 public class UserChannel {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id", nullable = false)
-//    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
 
-    @EmbeddedId
-    private UserChannelId userChannelId;
 
     /**
      * 컬럼 - 연관관계 컬럼을 제외한 컬럼을 정의합니다.
@@ -42,11 +40,11 @@ public class UserChannel {
      * 연관관계 - Foreign Key 값을 따로 컬럼으로 정의하지 않고 연관 관계로 정의합니다.
      */
     @ManyToOne
-    @MapsId("user_id")
+    @JoinColumn(name = "user_id")
     User user;
 
     @ManyToOne
-    @MapsId("channel_id")
+    @JoinColumn(name = "channel_id")
     Channel channel;
 
     /**

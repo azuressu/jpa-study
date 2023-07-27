@@ -48,4 +48,27 @@ class UserChannelRepositoryTest {
         *  그런 다음 그 이름이 newChannel(우리가 설정한 채널)의 이름과 같은지 비교하라 */
     }
 
+
+    @Test
+    void userJoinChannelWithCascadeTest() {
+        // UserChannel을 저장하지 않아도 userchannel이 저장되는지 확인 !
+        //given
+        var newChannel = Channel.builder().name("new-channel").build();
+        var newUser = User.builder().username("new_user").password("new-pass").build();
+        newChannel.joinUser(newUser);
+
+        // insertChannel을 할 때, 해당 Channel에 엮여 있는 userChannels에도 Cascade가 전파됨 !
+
+        // when
+        var savedChannel = channelRepository.insertChannel(newChannel);
+        var savedUser = userRepository.insertUser(newUser);
+
+        // then
+        // Channel을 가져와서 테스트 하는 방법 !
+        var foundChannel = channelRepository.selectChannel(savedChannel.getId());
+        assert foundChannel.getUserChannels().stream()
+                .map(UserChannel::getChannel)
+                .map(Channel::getName)
+                .anyMatch(name -> name.equals(newChannel.getName()));
+    }
 }
