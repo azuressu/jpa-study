@@ -53,7 +53,7 @@ public class User {
     /**
      * 연관관계 - Forign Key 갓ㅂ을 따로 컬럼으로 정의하지 않고 연관 관계로 정의
      */
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<UserChannel> userChannels = new LinkedHashSet<>();
 
     /**

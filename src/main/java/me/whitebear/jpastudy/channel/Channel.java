@@ -59,7 +59,7 @@ public class Channel {
     @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL, orphanRemoval = true) // CascadeType.ALL: 저장을 위해서 !
     private Set<Thread> threads = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL) // userChannel에 전이됨
+    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL, orphanRemoval = true) // userChannel에 전이됨
     private Set<UserChannel> userChannels = new LinkedHashSet<>(); // 중복 제거 및 불러오는 시점의 순서 보장
 
     /**

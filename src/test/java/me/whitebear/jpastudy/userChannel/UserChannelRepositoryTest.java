@@ -16,9 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 class UserChannelRepositoryTest {
 
     @Autowired
-    private UserChannelRepository userChannelRepository;
-
-    @Autowired
     private UserRepository userRepository;
 
     @Autowired
@@ -34,7 +31,6 @@ class UserChannelRepositoryTest {
         // when
         var savedChannel = channelRepository.insertChannel(newChannel);
         var savedUser = userRepository.insertUser(newUser);
-        var savedUserChannel = userChannelRepository.insertUserChannel(newUserChannel);
 
         // then
         // Channel을 가져와서 테스트 하는 방법 !
