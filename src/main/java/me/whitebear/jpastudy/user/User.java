@@ -5,12 +5,16 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import me.whitebear.jpastudy.userChannel.UserChannel;
+
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 // lombok
 @Getter
 // AccessLevel.PROTECTED: 실제 object mapping을 제외하고 외부에서 빈 생성자를 생성하는 것을 막기 위해서
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString
 
 // jpa
 @Entity
@@ -47,6 +51,7 @@ public class User {
     /**
      * 연관관계 - Forign Key 갓ㅂ을 따로 컬럼으로 정의하지 않고 연관 관계로 정의
      */
+
 
     /**
      * 연관관계 편의 메소드 - 반대쪽에서는 연관관계 편의 메소드가 없도록 주의
