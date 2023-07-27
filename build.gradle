@@ -38,6 +38,13 @@ dependencies {
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.1'
     runtimeOnly 'org.postgresql:postgresql'
 
+    // 7. 개발편의를 위한 Lombok 의존성 추가
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // 8. RawJPA 적용을 위한 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
