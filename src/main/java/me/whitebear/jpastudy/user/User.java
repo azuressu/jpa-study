@@ -1,10 +1,7 @@
 package me.whitebear.jpastudy.user;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import me.whitebear.jpastudy.userChannel.UserChannel;
 
 import java.util.HashSet;
@@ -38,20 +35,26 @@ public class User {
     @Column(length = 25)
     private String password;
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "street", column=@Column(name = "home_street"))
-    })
-    private Address address;
+//    @Embedded
+//    @AttributeOverrides({
+//            @AttributeOverride(name = "street", column=@Column(name = "home_street"))
+//    })
+//    private Address address;
 
     /**
      * 생성자 - 약속된 형태로만 생성 가능하게 함
      */
+    @Builder
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     /**
      * 연관관계 - Forign Key 갓ㅂ을 따로 컬럼으로 정의하지 않고 연관 관계로 정의
      */
-
+    @OneToMany(mappedBy = "user")
+    Set<UserChannel> userChannels = new LinkedHashSet<>();
 
     /**
      * 연관관계 편의 메소드 - 반대쪽에서는 연관관계 편의 메소드가 없도록 주의
