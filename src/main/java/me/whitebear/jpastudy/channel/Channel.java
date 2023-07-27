@@ -51,7 +51,12 @@ public class Channel {
     /**
      * 연관관계 - Foreign Key 값을 따로 컬럼으로 정의하지 않고 연관 관계로 정의합니다.
      */
-    @OneToMany(mappedBy = "channel")
+
+    /* cascade = CascadeType.ALL, orphanRemoval = true
+    * 자식 엔티티의 라이프 사이클이 부모 엔티티와 동일해짐
+    * 직접 자식 엔티티의 생명주기를 관리할 수 있게 되므로 자식 엔티티의 Repository 조차 필요하지 않게 됨
+    * => 매핑 테이블에서 많이 쓰임 */
+    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL, orphanRemoval = true) // CascadeType.ALL: 저장을 위해서 !
     private Set<Thread> threads = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL) // userChannel에 전이됨
