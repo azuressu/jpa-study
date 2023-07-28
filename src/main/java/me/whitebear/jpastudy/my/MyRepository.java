@@ -1,14 +1,9 @@
 package me.whitebear.jpastudy.my;
 
-import org.springframework.data.repository.NoRepositoryBean;
-import org.springframework.data.repository.Repository;
+import me.whitebear.jpastudy.user.User;
 
-import java.io.Serializable;
-import java.util.Optional;
+public interface MyRepository<T> {
 
-@NoRepositoryBean
-public interface MyRepository<User, ID extends Serializable> extends Repository<User, ID> {
-
-    Optional<User> findByUsername(String username);
+    void delete(T entity);
 
 }
