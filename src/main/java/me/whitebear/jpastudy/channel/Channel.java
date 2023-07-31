@@ -35,7 +35,7 @@ public class Channel {
     @Enumerated(EnumType.STRING)
     private Type type;
 
-    private enum Type {
+    public enum Type {
         PUBLIC, PRIVATE; // 각각 0, 1로 저장함 (따라서 STRING으로 저장하도록 해야 함)
     }
 
