@@ -22,6 +22,14 @@ public class Timestamp {
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 
+    @CreatedBy
+    @ManyToOne
+    User createdBy;
+
+    @LastModifiedBy
+    @ManyToOne
+    User modifiedBy;
+
     public void updateCreatedAt() {
         this.createdAt = LocalDateTime.now();
     }
