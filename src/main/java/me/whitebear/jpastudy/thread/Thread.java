@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.whitebear.jpastudy.channel.Channel;
+import me.whitebear.jpastudy.common.Timestamp;
 import me.whitebear.jpastudy.mention.Mention;
 import me.whitebear.jpastudy.user.User;
 
@@ -18,7 +19,7 @@ import java.util.Set;
 
 // jpa
 @Entity
-public class Thread {
+public class Thread extends Timestamp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
