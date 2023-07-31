@@ -2,6 +2,7 @@ package me.whitebear.jpastudy.user;
 
 import jakarta.persistence.*;
 import lombok.*;
+import me.whitebear.jpastudy.mention.Mention;
 import me.whitebear.jpastudy.userChannel.UserChannel;
 
 import java.util.HashSet;
@@ -55,6 +56,9 @@ public class User {
      */
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<UserChannel> userChannels = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    Set<Mention> mentions = new LinkedHashSet<>();
 
     /**
      * 연관관계 편의 메소드 - 반대쪽에서는 연관관계 편의 메소드가 없도록 주의

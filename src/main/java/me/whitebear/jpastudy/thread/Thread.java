@@ -6,6 +6,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.whitebear.jpastudy.channel.Channel;
+import me.whitebear.jpastudy.mention.Mention;
+import me.whitebear.jpastudy.user.User;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 // lombok
 @Getter
@@ -42,6 +47,9 @@ public class Thread {
     @JoinColumn(name = "channel_id")
     private Channel channel;
 
+    @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL, orphanRemoval = true)
+    Set<Mention> mentions = new LinkedHashSet<>();
+
 
     /**
      * 연관관계 편의 메소드 - 반대쪽에는 연관관계 편의 메소드가 없도록 주의합니다.
@@ -49,6 +57,13 @@ public class Thread {
     public void setChannel(Channel channel) {
         this.channel = channel;
         channel.addThread(this);
+    }
+
+    public void addMention(User user) {
+        // mention을 생성해서
+        var mention = Mention.builder().user(user).thread(this).build();
+        this.mentions.add(mention);
+        user.getMentions().add(mention);
     }
 
     /**
