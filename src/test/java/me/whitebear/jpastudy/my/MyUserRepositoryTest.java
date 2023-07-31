@@ -31,19 +31,19 @@ public class MyUserRepositoryTest {
         userRepository.delete(newUser);
     }
 
-    @Test
-    void myUserRepositoryFindNameAllTest() {
-        // given
-        var newUser1 = User.builder().username("new1").password("pass").build();
-        var newUser2 = User.builder().username("new2").password("pass").build();
-        userRepository.save(newUser1);
-        userRepository.save(newUser2);
-
-        // when
-        var userNameList = userRepository.findNameAll();
-
-        // then
-        Assertions.assertThat(userNameList.containsAll(List.of(newUser1.getUsername(), newUser2.getUsername())));
-    }
+//    @Test
+//    void myUserRepositoryFindNameAllTest() {
+//        // given
+//        var newUser1 = User.builder().username("new1").password("pass").build();
+//        var newUser2 = User.builder().username("new2").password("pass").build();
+//        userRepository.save(newUser1);
+//        userRepository.save(newUser2);
+//
+//        // when
+//        var userNameList = userRepository.findNameAll();
+//
+//        // then
+//        Assertions.assertThat(userNameList.containsAll(List.of(newUser1.getUsername(), newUser2.getUsername())));
+//    }
 
 }

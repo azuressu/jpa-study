@@ -1,0 +1,21 @@
+package me.whitebear.jpastudy.common;
+
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
+@AllArgsConstructor
+@RequiredArgsConstructor
+public class PageDTO {
+
+    private final Integer currentPage;
+    private final Integer size;
+    private String sortBy;
+
+    public Pageable toPageable() {
+        return PageRequest.of(currentPage - 1, size, Sort.by(sortBy).descending());
+    }
+
+}
