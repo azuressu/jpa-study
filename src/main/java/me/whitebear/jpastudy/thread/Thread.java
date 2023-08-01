@@ -6,8 +6,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.whitebear.jpastudy.channel.Channel;
+import me.whitebear.jpastudy.comment.Comment;
 import me.whitebear.jpastudy.common.Timestamp;
-import me.whitebear.jpastudy.mention.Mention;
+import me.whitebear.jpastudy.emotion.ThreadEmotion;
+import me.whitebear.jpastudy.mention.ThreadMention;
 import me.whitebear.jpastudy.user.User;
 
 import java.util.LinkedHashSet;
@@ -44,12 +46,18 @@ public class Thread extends Timestamp {
     /**
      * 연관관계 - Foreign Key 값을 따로 컬럼으로 정의하지 않고 연관 관계로 정의합니다.
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "channel_id")
     private Channel channel;
 
     @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL, orphanRemoval = true)
-    Set<Mention> mentions = new LinkedHashSet<>();
+    Set<Comment> comments = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL, orphanRemoval = true)
+    Set<ThreadMention> mentions = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "thread", cascade = CascadeType.ALL, orphanRemoval = true)
+    Set<ThreadEmotion> emotions = new LinkedHashSet<>();
 
 
     /**
@@ -62,9 +70,9 @@ public class Thread extends Timestamp {
 
     public void addMention(User user) {
         // mention을 생성해서
-        var mention = Mention.builder().user(user).thread(this).build();
+        var mention = ThreadMention.builder().user(user).thread(this).build();
         this.mentions.add(mention);
-        user.getMentions().add(mention);
+        user.getThreadMentions().add(mention);
     }
 
     /**

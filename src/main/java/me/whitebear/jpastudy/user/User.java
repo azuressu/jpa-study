@@ -2,10 +2,10 @@ package me.whitebear.jpastudy.user;
 
 import jakarta.persistence.*;
 import lombok.*;
-import me.whitebear.jpastudy.mention.Mention;
+import me.whitebear.jpastudy.mention.CommentMention;
+import me.whitebear.jpastudy.mention.ThreadMention;
 import me.whitebear.jpastudy.userChannel.UserChannel;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -52,13 +52,16 @@ public class User {
     }
 
     /**
-     * 연관관계 - Forign Key 갓ㅂ을 따로 컬럼으로 정의하지 않고 연관 관계로 정의
+     * 연관관계 - Forign Key 값을 따로 컬럼으로 정의하지 않고 연관 관계로 정의
      */
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<UserChannel> userChannels = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    Set<Mention> mentions = new LinkedHashSet<>();
+    Set<CommentMention> commentMentions = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    Set<ThreadMention> threadMentions = new LinkedHashSet<>();
 
     /**
      * 연관관계 편의 메소드 - 반대쪽에서는 연관관계 편의 메소드가 없도록 주의

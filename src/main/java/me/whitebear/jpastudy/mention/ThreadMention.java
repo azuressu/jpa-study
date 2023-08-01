@@ -1,11 +1,15 @@
 package me.whitebear.jpastudy.mention;
 
-import jakarta.persistence.*;
+
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import me.whitebear.jpastudy.channel.Channel;
+import me.whitebear.jpastudy.common.Timestamp;
 import me.whitebear.jpastudy.thread.Thread;
 import me.whitebear.jpastudy.user.User;
 
@@ -15,13 +19,34 @@ import me.whitebear.jpastudy.user.User;
 
 // jpa
 @Entity
-public class Mention {
-
-    @EmbeddedId
-    private MentionId mentionId;
+public class ThreadMention extends Timestamp {
 
     /**
      * 컬럼 - 연관관계 컬럼을 제외한 컬럼을 정의합니다.
+     */
+    @EmbeddedId
+    private ThreadMentionId threadMentionId = new ThreadMentionId();
+
+    /**
+     * 생성자 - 약속된 형태로만 생성가능하도록 합니다.
+     */
+    @Builder
+    public ThreadMention(User user, Thread thread) {
+        this.user = user;
+        this.thread = thread;
+        // embedded 할 때는 id를 직접 넣어주어야 함
+        this.threadMentionId = getThreadMentionId(user, thread);
+    }
+
+    private static ThreadMentionId getThreadMentionId(User user, Thread thread) {
+        var id = new ThreadMentionId();
+        id.setUserId(user.getId());
+        id.setThreadId(thread.getId());
+        return id;
+    }
+
+    /**
+     * 연관관계 - Foreign Key 값을 따로 컬럼으로 정의하지 않고 연관 관계로 정의합니다.
      */
     @ManyToOne
     @MapsId("user_id")
@@ -30,19 +55,6 @@ public class Mention {
     @ManyToOne
     @MapsId("thread_id")
     Thread thread;
-
-    /**
-     * 생성자 - 약속된 형태로만 생성가능하도록 합니다.
-     */
-    @Builder
-    public Mention(User user, Thread thread) {
-        this.user = user;
-        this.thread = thread;
-    }
-
-    /**
-     * 연관관계 - Foreign Key 값을 따로 컬럼으로 정의하지 않고 연관 관계로 정의합니다.
-     */
 
 
     /**
