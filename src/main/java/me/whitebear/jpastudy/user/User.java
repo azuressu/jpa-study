@@ -70,5 +70,8 @@ public class User {
     /**
      * 서비스 메소드 - 외부에서 엔티티를 수정할 메소드를 정의 (단일 책임을 갖도록 주의하기)
      */
+    public void updatePassword(String newPassword) {
+        this.password = newPassword;
+    }
 
 }
