@@ -4,9 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.whitebear.jpastudy.comment.Comment;
+import me.whitebear.jpastudy.user.User;
 
 // lombok
 @Getter
@@ -23,6 +25,12 @@ public class CommentEmotion extends Emotion{
     /**
      * 생성자 - 약속된 형태로만 생성가능하도록 합니다.
      */
+    @Builder
+    public CommentEmotion(User user, Comment comment, String body) {
+        this.user = user;
+        this.body = body;
+        this.comment = comment;
+    }
 
 
     /**

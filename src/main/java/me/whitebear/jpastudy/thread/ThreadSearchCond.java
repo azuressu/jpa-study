@@ -7,7 +7,6 @@ import lombok.*;
 @Setter
 @Builder
 @NoArgsConstructor
-@RequiredArgsConstructor
 @AllArgsConstructor
 public class ThreadSearchCond {
 
