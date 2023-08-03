@@ -1,5 +1,7 @@
 package me.whitebear.jpastudy.user;
 
+import me.whitebear.jpastudy.projection.UserInfo;
+import me.whitebear.jpastudy.projection.UserProfile;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,5 +19,15 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findByUsername(String username, Sort sort);
 
     Optional<User> findByUsername(String username);
+
+    // Projection을 Interface로 사용
+    List<UserProfile> findByPassword(String password);
+
+    // Projection을 DTO 클래스 처럼 사용
+//    List<UserInfo> findByPassword(String password);
+
+    // Dynamic Projection
+    <T> List <T> findByPasswordStartingWith(String passwordStartingWith, Class<T> type);
+
 
 }

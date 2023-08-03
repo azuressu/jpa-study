@@ -13,7 +13,6 @@ import org.springframework.data.support.PageableExecutionUtils;
 
 import java.util.Objects;
 
-import static me.whitebear.jpastudy.channel.QChannel.channel;
 import static me.whitebear.jpastudy.thread.QThread.thread;
 
 @RequiredArgsConstructor
